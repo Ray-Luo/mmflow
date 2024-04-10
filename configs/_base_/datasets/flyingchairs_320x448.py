@@ -1,5 +1,7 @@
 dataset_type = 'FlyingChairs'
-data_root = 'data/FlyingChairs_release'
+data_root = '/home/luoleyouluole/flyingchairs/FlyingChairs_release/'
+
+samples_per_gpu=20
 
 img_norm_cfg = dict(mean=[0., 0., 0.], std=[255., 255., 255.], to_rgb=False)
 
@@ -65,30 +67,30 @@ flyingchairs_train = dict(
     type=dataset_type,
     pipeline=train_pipeline,
     data_root=data_root,
-    split_file='data/FlyingChairs_release/FlyingChairs_train_val.txt')
+    split_file=data_root + 'FlyingChairs_train_val.txt')
 
 data = dict(
     train_dataloader=dict(
-        samples_per_gpu=1,
+        samples_per_gpu=samples_per_gpu,
         workers_per_gpu=2,
         drop_last=True,
         persistent_workers=True),
     val_dataloader=dict(
-        samples_per_gpu=1,
+        samples_per_gpu=samples_per_gpu,
         workers_per_gpu=2,
         shuffle=False,
         persistent_workers=True),
-    test_dataloader=dict(samples_per_gpu=1, workers_per_gpu=2, shuffle=False),
+    test_dataloader=dict(samples_per_gpu=samples_per_gpu, workers_per_gpu=2, shuffle=False),
     train=flyingchairs_train,
     val=dict(
         type=dataset_type,
         pipeline=test_pipeline,
         data_root=data_root,
         test_mode=True,
-        split_file='data/FlyingChairs_release/FlyingChairs_train_val.txt'),
+        split_file=data_root + 'FlyingChairs_train_val.txt'),
     test=dict(
         type=dataset_type,
         pipeline=test_pipeline,
         data_root=data_root,
         test_mode=True,
-        split_file='data/FlyingChairs_release/FlyingChairs_train_val.txt'))
+        split_file=data_root + 'FlyingChairs_train_val.txt'))

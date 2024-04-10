@@ -9,9 +9,10 @@ import warnings
 import mmcv
 import torch
 import torch.distributed as dist
-from mmcv import Config, DictAction
-from mmcv.runner import init_dist
-from mmcv.utils import get_git_hash
+from mmengine.dist import get_dist_info,init_dist
+from mmengine.config import Config, DictAction
+# from mmcv.runner import init_dist
+# from mmcv.utils import get_git_hash
 
 from mmflow import __version__
 from mmflow.apis import init_random_seed, set_random_seed, train_model
@@ -187,7 +188,7 @@ def main():
         # save mmflow version, config file content and class names in
         # checkpoints as meta data
         cfg.checkpoint_config.meta = dict(
-            mmflow_version=f'{__version__}+{get_git_hash()[:7]}',
+            # mmflow_version=f'{__version__}+{get_git_hash()[:7]}',
             config=cfg.pretty_text)
     # add an attribute for visualization convenience
     datasets_size = 0
